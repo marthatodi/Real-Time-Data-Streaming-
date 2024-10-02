@@ -4,21 +4,25 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
-import { ChatComponent } from './chat/chat.component';
+import { ChatComponent } from './XMLHttpRequest/chat.component';
 import { OpenaiService } from './openai.service';
-import { RouterModule } from '@angular/router'
-import { WebSocketService } from './websocket.service';
+import { RouterModule, Routes } from '@angular/router'
+import { WebSocketsChatComponent } from './WebSockets/web-sockets-chat.component'; 
 
+const routes: Routes = [
+  { path: 'web-sockets-chat', component: WebSocketsChatComponent }, // The new component
+];
 @NgModule({
   declarations: [
     AppComponent,
-    ChatComponent
+    ChatComponent,
+    WebSocketsChatComponent
   ],
   imports: [
     BrowserModule,
-    HttpClientModule,  // Import HttpClientModule here
+    HttpClientModule,
+    RouterModule.forRoot(routes),  // Make sure RouterModule is imported here    HttpClientModule,  // Import HttpClientModule here
     FormsModule,
-    RouterModule
   ],
   providers: [OpenaiService],  // Optionally provide OpenaiService globally
   bootstrap: [AppComponent]

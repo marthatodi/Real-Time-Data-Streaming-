@@ -3,11 +3,11 @@ import { Component, OnInit } from '@angular/core';
 import { WebSocketService } from '../websocket.service';
 
 @Component({
-  selector: 'app-chat',
-  templateUrl: './chat.component.html',
-  styleUrls: ['./chat.component.scss']
+  selector: 'web-sockets-chat',
+  templateUrl: './web-sockets-chat.component.html',
+  styleUrls: ['./web-sockets-chat.component.scss']
 })
-export class ChatComponent implements OnInit {
+export class WebSocketsChatComponent implements OnInit {
   messages: string[] = [];
   currentMessage: string = '';
 
