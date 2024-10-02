@@ -1,0 +1,7 @@
+<div class="chat-container">
+  <h2>Chat with OpenAI</h2>
+  <textarea [(ngModel)]="userMessage" placeholder="Type your message here..."></textarea><br>
+  <button (click)="sendMessage()">Send</button>
+  <h3>Response:</h3>
+  <p>{{ chatResponse }}</p>
+</div>
