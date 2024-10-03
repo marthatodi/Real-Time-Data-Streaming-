@@ -3,7 +3,12 @@
   <textarea [(ngModel)]="userMessage" placeholder="Type your message here..."></textarea><br>
   <button (click)="sendMessage()">Send</button>
   <h3>Response:</h3>
-  <p>{{ chatResponse }}</p>
-  <button [routerLink]="['/web-sockets-chat']">Chat With WebSockets</button>
-  <button [routerLink]="['/open-ai-chat']">Chat With Open AI Node</button>
+  <div class="response-box">
+    <p *ngIf="chatResponse">{{ chatResponse }}</p>
+    <p *ngIf="!chatResponse">No response yet...</p>
+  </div>
+  <div class="chat-options">
+    <button [routerLink]="['/web-sockets-chat']">Chat With WebSockets</button>
+    <button [routerLink]="['/open-ai-chat']">Chat With OpenAI Node</button>
+  </div>
 </div>
