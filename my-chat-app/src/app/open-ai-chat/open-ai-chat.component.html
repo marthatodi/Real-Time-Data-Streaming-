@@ -1,0 +1,15 @@
+<div class="container">
+  <h1>Real-Time Translation (Please Run server-ai.js)</h1>
+  <div>
+    <label for="textToTranslate">Ask ChatGPT:</label>
+    <input type="text" id="textToTranslate" [(ngModel)]="textToTranslate" />
+  </div>
+  <button (click)="getData()">Go</button>
+
+  <div *ngIf="chatResponse === ''">
+    <p>Loading...</p>
+  </div>
+  <div *ngIf="chatResponse !== ''">
+    <p><strong>The Answer:</strong> {{ chatResponse }}</p>
+  </div>
+</div>

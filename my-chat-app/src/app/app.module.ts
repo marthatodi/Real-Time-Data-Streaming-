@@ -7,16 +7,19 @@ import { AppComponent } from './app.component';
 import { ChatComponent } from './XMLHttpRequest/chat.component';
 import { OpenaiService } from './openai.service';
 import { RouterModule, Routes } from '@angular/router'
-import { WebSocketsChatComponent } from './WebSockets/web-sockets-chat.component'; 
+import { WebSocketsChatComponent } from './WebSockets/web-sockets-chat.component';
+import { OpenAiChatComponent } from './open-ai-chat/open-ai-chat.component'; 
 
 const routes: Routes = [
   { path: 'web-sockets-chat', component: WebSocketsChatComponent }, // The new component
+  { path: 'open-ai-chat', component: OpenAiChatComponent }, // The new component
 ];
 @NgModule({
   declarations: [
     AppComponent,
     ChatComponent,
-    WebSocketsChatComponent
+    WebSocketsChatComponent,
+    OpenAiChatComponent
   ],
   imports: [
     BrowserModule,
