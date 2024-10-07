@@ -1,12 +1,12 @@
 <div class="chat-container">
-  <h2>Chat with OpenAI using XMLHttpRequest</h2>
-  <textarea [(ngModel)]="userMessage" placeholder="Type your message here..."></textarea><br>
-  <button (click)="sendMessage()">Send</button>
-  <h3>Response:</h3>
-  <div class="response-box">
-    <p *ngIf="chatResponse">{{ chatResponse }}</p>
-    <p *ngIf="!chatResponse">No response yet...</p>
+  <h2>Chat with OpenAI</h2>
+  <div class="chat-box" #chatBox  #scrollMe [scrollTop]="scrollMe.scrollHeight">
+    <div style="display: flex; flex-direction: column;" *ngFor="let message of messages let index=index">
+      <div class="response-message user" *ngIf="message.type === 'user'">{{ message.content }}</div>
+      <div class="response-message bot">{{ messagesResp[index]?.content || chatResponse }}</div>
+    </div>
   </div>
+  <textarea [(ngModel)]="userMessage" placeholder="Ask me something here..." (keydown)="sendMessage($event)"></textarea>
   <div class="chat-options">
     <button [routerLink]="['/web-sockets-chat']">Chat With WebSockets</button>
     <button [routerLink]="['/open-ai-chat']">Chat With OpenAI Node</button>
