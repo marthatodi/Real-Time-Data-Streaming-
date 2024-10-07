@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'my-chat-app';
+  page=''
+
+ setPage = (page:string) => {
+    this.page = page
+  }
 }

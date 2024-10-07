@@ -1,4 +1,4 @@
-<div class="chat-container">
+<div class="chat-container ">
   <h2>Chat with OpenAI</h2>
   <div class="chat-box" #chatBox  #scrollMe [scrollTop]="scrollMe.scrollHeight">
     <div style="display: flex; flex-direction: column;" *ngFor="let message of messages let index=index">
@@ -8,7 +8,5 @@
   </div>
   <textarea [(ngModel)]="userMessage" placeholder="Ask me something here..." (keydown)="sendMessage($event)"></textarea>
   <div class="chat-options">
-    <button [routerLink]="['/web-sockets-chat']">Chat With WebSockets</button>
-    <button [routerLink]="['/open-ai-chat']">Chat With OpenAI Node</button>
   </div>
 </div>
