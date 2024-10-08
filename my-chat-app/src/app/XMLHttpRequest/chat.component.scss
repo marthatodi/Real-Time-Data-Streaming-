@@ -1,18 +1,21 @@
 .chat-container {
-  max-width: 400px;
+  width: 440px;
   margin: 20px;
   padding: 20px;
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
   font-family: 'Helvetica Neue', Arial, sans-serif;
+  background: url("../../assets/svg/background_img.svg" ) center center fixed;
+  background-color: lightcyan;
 }
 
 h2 {
   text-align: center;
-  color: gray;
+  color: azure;
   margin-bottom: 15px;
   font-size: 1.5em;
+  background-color: #680747; 
 }
 
 .chat-box {
@@ -63,6 +66,7 @@ textarea {
   resize: none;
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
   border-top: none;
+  margin-top: 5px;
 }
 
 textarea:focus {

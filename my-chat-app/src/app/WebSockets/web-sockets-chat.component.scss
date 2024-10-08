@@ -1,8 +1,8 @@
 .chat-container {
-  max-width: 400px; /* Same as original for consistency */
+  width: 440px; /* Same as original for consistency */
   margin: 20px;
   padding: 20px;
-  background-color: #fff;
+  background-color: #f0ece2;
   border-radius: 10px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
   font-family: 'Helvetica Neue', Arial, sans-serif;
@@ -103,8 +103,8 @@ button:hover {
 
 
 .toggle-button {
-  background-color: #007bff; /* Bootstrap primary color */
-  color: white;
+  background-color: grey; /* Bootstrap primary color */
+  color: #680747;
   border: none;
   padding: 10px 15px;
   border-radius: 5px;
@@ -114,5 +114,6 @@ button:hover {
 }
 
 .toggle-button:hover {
-  background-color: #0056b3; /* Darker shade on hover */
+  background-color: #680747; /* Darker shade on hover */
+  color: white;
 }

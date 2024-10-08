@@ -1,5 +1,5 @@
 <div style="display: flex; flex-direction: row; ">
-  <app-chat style="width: 40%"></app-chat>
+  <app-chat></app-chat>
   <div  style="align-content: center; ">
     <button *ngIf="page === 'open-ai-chat'" (click)="setPage('web-sockets-chat')" [routerLink]="['/web-sockets-chat']">
       Chat With WebSockets

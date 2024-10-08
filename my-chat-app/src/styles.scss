@@ -1,9 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
 body {
-  margin: 0; /* Remove default margin */
-  height: 100vh; /* Full height */
-  background: url("assets/svg/background_img.svg" ) no-repeat center center fixed;
+  background: url("assets/svg/main_hand.svg" ) no-repeat center center fixed;
   background-size: cover; /* Cover the entire viewport */
-  background-color: antiquewhite;
+  background-color: #407088;;
   align-content: center;
+  display: flex;
+  justify-content: center;  /* Horizontally center */
+  align-items: center;      /* Vertically center (if needed) */
+  height: 100vh;        /* Ensure the body takes the full height of the viewport */
+  margin: 0;
+  padding: 0;
 }
