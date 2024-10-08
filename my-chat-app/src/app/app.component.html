@@ -1,20 +1,24 @@
 <h2 style="color: #cadefc; text-align: center;">Real-Time Data Streaming</h2>
 <div style="display: flex; flex-direction: row; gap: 50px;">
   <app-chat></app-chat>
-  <div  style="align-content: end; ">
-    <button *ngIf="page === 'open-ai-chat'" (click)="setPage('web-sockets-chat')" [routerLink]="['/web-sockets-chat']">
+  <div style="align-content: end;">
+    <!-- WebSockets Chat Button -->
+    <button *ngIf="page === 'open-ai-chat'" (click)="setPage('web-sockets-chat')" [routerLink]="['/web-sockets-chat']" class="tooltip-btn" data-tooltip="Don't forget to run server.js!">
       Chat With WebSockets
       <div>
-      <img style="width: 50%;" src="../../assets/svg/web_socket_img.svg" />
-    </div>
+        <img style="width: 50%;" src="../../assets/svg/web_socket_img.svg" />
+      </div>
     </button>
-    <button *ngIf="page !== 'open-ai-chat'" (click)="setPage('open-ai-chat')" [routerLink]="['/open-ai-chat']">
+  
+    <!-- OpenAI Node Chat Button -->
+    <button *ngIf="page !== 'open-ai-chat'" (click)="setPage('open-ai-chat')" [routerLink]="['/open-ai-chat']" class="tooltip-btn" data-tooltip="Don't forget to run server-ai.js!">
       Chat With OpenAI Node
       <div>
-      <img style="width: 50%;" src="../../assets/svg/main-robot.svg" />
+        <img style="width: 50%;" src="../../assets/svg/main-robot.svg" />
       </div>
     </button>
   </div>
+  
   <router-outlet></router-outlet>
 </div>
 <h3 style="text-align: end; color: #c3bef0;">sponsored by Martha</h3>

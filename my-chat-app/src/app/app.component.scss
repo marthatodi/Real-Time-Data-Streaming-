@@ -9,14 +9,61 @@ button {
   transition: background-color 0.3s ease;
   height: 100px;
   width: 300px;
+  position: relative; /* Required for positioning the tooltip */
 }
 
 button:hover {
   background-color: #c3bef0;
-  color:gray;
+  color: gray;
 }
 
-img{
+img {
   max-width: 100px;
   max-height: 100px;
+}
+
+/* Tooltip container style */
+.tooltip-btn[data-tooltip] {
+  position: relative;
+}
+
+.tooltip-btn[data-tooltip]::before,
+.tooltip-btn[data-tooltip]::after {
+  position: absolute;
+  opacity: 0;
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+
+.tooltip-btn[data-tooltip]::before {
+  content: attr(data-tooltip);
+  font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+  background-color: #ffe3b0; /* Comic-style bright yellow */
+  color: #333;
+  padding: 10px;
+  font-size: 18px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  z-index: 1;
+  width: 200px;
+  bottom: 120%; /* Position the tooltip above the button */
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.tooltip-btn[data-tooltip]::after {
+  content: '';
+  border-style: solid;
+  border-width: 10px 10px 0 10px;
+  border-color: #ffe3b0 transparent transparent transparent; /* Match tooltip background */
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.tooltip-btn:hover::before,
+.tooltip-btn:hover::after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-10px); /* Slight "bounce" effect when showing */
 }
