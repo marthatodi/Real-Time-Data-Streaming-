@@ -1,12 +1,12 @@
 <div class="chat-container">
-  <h2>Chat using WebSockets</h2>
-  <span class="subtitle">(Please Run server.js) 
-    <button class="toggle-button" (click)="toggleChat()">
-      {{ theWholeMessage ? 'Break Messages' : 'Show it in One' }}
-    </button>
+  
+
+  <h2>Chat via WebSockets</h2>
+  <span class="subtitle">Hello..is it me you are looking for? 
+    
   </span>
-  <div class="chat-box"> 
-    <p *ngIf="theWholeMessage else break" class="response-message bot">{{ currentMessage }}</p>
+  <div class="chat-box">
+    <p *ngIf="theWholeMessage  else break" class="response-message bot">{{ currentMessage }}</p>
     <ng-template #break>
       <div *ngFor="let message of messages let index=index" class="response-message bot">
         <p>{{ messages[index] || currentMessage }}</p>
@@ -18,4 +18,13 @@
     <input type="text" #input placeholder="Type your message here..." />
     <button (click)="sendMessage(input.value); input.value = ''">Send</button>
   </div>
+  
+</div>
+ <!-- Toggle switch -->
+  <div style="margin-left: 20px;">
+ <label class="switch">   
+  <input type="checkbox"  (change)="toggleChat()">
+  <span class="slider"></span>
+</label>
+<span style="margin-left:5px;" [ngStyle]="{color: theWholeMessage ? '#cadefc' : '#680747'}" >{{ theWholeMessage ? 'Streamed Response' : 'Combined Response' }}</span> 
 </div>

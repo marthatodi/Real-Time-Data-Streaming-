@@ -1,16 +1,23 @@
-<div class="container">
-  <h1>Real-Time Translation </h1>
-  <span>(Please Run server-ai.js)</span>
+<div class="chat-container">
+  <h2>Open AI Node.</h2>
+  <span class="subtitle">...is speaking</span>
 
   <div class="input-container">
-    <label for="textToTranslate">Ask ChatGPT:</label>
-    <input type="text" id="textToTranslate" [(ngModel)]="textToTranslate" placeholder="Type your message here..." />
+    <input type="text" id="textToTranslate" [(ngModel)]="textToTranslate" placeholder="Ask ChatGPT..." />
+    <button (click)="getData()">Talk to me</button>
   </div>
-  
-  <button (click)="getData()">Go</button>
 
-  <div class="response-box">
-    <p *ngIf="chatResponse === ''">Loading...</p>
-    <p *ngIf="chatResponse !== ''"><strong>The Answer:</strong> {{ chatResponse }}</p>
+  <div class="chat-box">
+    <p *ngIf="chatResponse === ''" class="response-message bot">Loading...</p>
+    <p *ngIf="chatResponse !== ''" class="response-message bot"><strong>The Answer:</strong> {{ chatResponse }}</p>
   </div>
+</div>
+
+<!-- Toggle switch -->
+ <div style="margin-left: 20px; color: aqua;">
+<label class="switch">   
+ <input type="checkbox">
+ <span class="slider"></span>
+</label> 
+<span style="margin-left:5px;" [ngStyle]="{color: 1? '#cadefc' : '#680747'}" >{{ 1===1 ? 'Streamed Response' : 'Combined Response' }}</span> 
 </div>
