@@ -1,12 +1,17 @@
-<div class="container">
-  <h1>Chat with ChatGPT using WebSockets </h1>
-  <span>(Please Run server.js)</span>
-  
-  <div class="message-box">
-    <div *ngFor="let message of messages" class="message">
-      <p>{{ message }}</p>
-    </div>
-    <p *ngIf="currentMessage">{{ currentMessage }}</p>
+<div class="chat-container">
+  <h2>Chat with ChatGPT using WebSockets</h2>
+  <span class="subtitle">(Please Run server.js) 
+    <button class="toggle-button" (click)="toggleChat()">
+      {{ theWholeMessage ? 'Break Messages' : 'Show it in One' }}
+    </button>
+  </span>
+  <div class="chat-box"> 
+    <p *ngIf="theWholeMessage else break" class="response-message bot">{{ currentMessage }}</p>
+    <ng-template #break>
+      <div *ngFor="let message of messages let index=index" class="response-message bot">
+        <p>{{ messages[index] || currentMessage }}</p>
+      </div>
+    </ng-template>
   </div>
 
   <div class="input-container">

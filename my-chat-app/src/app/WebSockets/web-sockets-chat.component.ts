@@ -10,6 +10,7 @@ import { WebSocketService } from '../websocket.service';
 export class WebSocketsChatComponent implements OnInit {
   messages: string[] = [];
   currentMessage: string = '';
+  theWholeMessage: boolean = false;
 
   constructor(private webSocketService: WebSocketService) {}
 
@@ -19,7 +20,8 @@ export class WebSocketsChatComponent implements OnInit {
         try {
           const data = JSON.parse(message); // Deserialize the JSON string
           this.currentMessage += data.message; // Append chunk to current message
-          // Optionally, push to messages array if you want to display multiple messages
+          this.messages.push(data.message);
+          console.log(this.currentMessage);      
         } catch (error) {
           console.error('Error parsing JSON:', error);
         }
@@ -38,4 +40,9 @@ export class WebSocketsChatComponent implements OnInit {
       console.error('Message content cannot be empty');
     }
   }
+
+    // Toggle chat visibility
+    toggleChat() {
+      this.theWholeMessage = !this.theWholeMessage; // Toggle the state
+    }
 }

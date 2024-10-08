@@ -14,7 +14,7 @@ export class WebSocketService {
   }
 
   private connect(): void {
-    this.socket = new WebSocket('ws://localhost:8080');
+    this.socket = new WebSocket('http://localhost:8080');
 
     this.socket.onmessage = (event) => {
       this.messagesSubject.next(event.data);

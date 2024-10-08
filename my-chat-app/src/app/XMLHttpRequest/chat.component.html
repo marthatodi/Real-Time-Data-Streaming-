@@ -1,5 +1,5 @@
 <div class="chat-container ">
-  <h2>Chat with OpenAI</h2>
+  <h2>Chat with XMLRequest</h2>
   <div class="chat-box" #chatBox  #scrollMe [scrollTop]="scrollMe.scrollHeight">
     <div style="display: flex; flex-direction: column;" *ngFor="let message of messages let index=index">
       <div class="response-message user" *ngIf="message.type === 'user'">{{ message.content }}</div>

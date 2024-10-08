@@ -35,22 +35,25 @@ export class OpenaiService {
 
       // On progress, process the stream
       xhr.onprogress = (event) => {
-        const response = xhr.responseText.split('\n').filter(Boolean); // Split and filter out empty lines
+        const response = xhr?.responseText?.split('\n')?.filter(Boolean); // Split and filter out empty lines
         console.log('resposne',response);
         
-        response.forEach(chunk => {
-          if (chunk.startsWith('data:')) {
+        response && response.length && response.forEach(chunk => {
+          if (chunk?.startsWith('data:')) {
             const data = chunk.slice(5);  // Remove the 'data:' prefix
-            if (data === '[DONE]') {
+            if (data === " [DONE]") {
               observer.complete();  // End the stream when done
             } else {
               try {
+                if(data && data.length && JSON.parse(data) && JSON.parse(data)?.choices && JSON?.parse(data)?.choices?.length && JSON.parse(data)?.choices?.[0]?.delta && JSON.parse(data)?.choices?.[0]?.delta?.content) {  
                 const parsed = JSON.parse(data);
                 const content = parsed.choices[0]?.delta?.content || '';
                 if (content) {
                   observer.next(content);  // Emit the actual content
                 }
+              }
               } catch (err) {
+                observer.error('An error occurred while parsing the response.');
                 console.error('Error parsing chunk:', err);
               }
             }
