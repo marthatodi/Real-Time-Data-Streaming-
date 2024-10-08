@@ -1,20 +1,19 @@
 button {
   padding: 10px;
-  background-color: lightgray;
+  background-color: gray;
   color: #fff;
   border: none;
   border-radius: 25px;
   cursor: pointer;
   font-size: 16px;
   transition: background-color 0.3s ease;
-  color:grey;
   height: 100px;
   width: 300px;
 }
 
 button:hover {
-  background-color: #24527a;
-  color:aliceblue;
+  background-color: #c3bef0;
+  color:gray;
 }
 
 img{

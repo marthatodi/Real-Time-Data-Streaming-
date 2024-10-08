@@ -1,6 +1,7 @@
-<div style="display: flex; flex-direction: row; ">
+<h2 style="color: #cadefc; text-align: center;">Real-Time Data Streaming</h2>
+<div style="display: flex; flex-direction: row; gap: 50px;">
   <app-chat></app-chat>
-  <div  style="align-content: center; ">
+  <div  style="align-content: end; ">
     <button *ngIf="page === 'open-ai-chat'" (click)="setPage('web-sockets-chat')" [routerLink]="['/web-sockets-chat']">
       Chat With WebSockets
       <div>
@@ -16,3 +17,4 @@
   </div>
   <router-outlet></router-outlet>
 </div>
+<h3 style="text-align: end; color: #c3bef0;">sponsored by Martha</h3>
