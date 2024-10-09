@@ -1,10 +1,13 @@
 // Node.js server with Express
+require('dotenv').config();
+
 const express = require('express');
 const request = require('request');
 const app = express();
 const cors = require('cors');
 const port = 3000;
 const CHATGPT_API_URL = 'https://api.openai.com/v1/chat/completions';
+const CHATGPT_API_KEY = process.env.API_KEY;
 
 app.use(cors({
   origin: 'http://localhost:4200' // Your Angular app's origin
@@ -23,7 +26,7 @@ app.get('/api/data', (req, res) => {
   const options = {
     url: 'https://api.openai.com/v1/chat/completions',
     headers: {
-      'Authorization': 'Bearer YOUR_API_KEY',
+      'Authorization': `Bearer ${CHATGPT_API_KEY}`,
       'Content-Type': 'application/json'
     },
 

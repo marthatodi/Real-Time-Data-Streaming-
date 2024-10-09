@@ -1,5 +1,5 @@
 <div class="chat-container">
-  <h2>Open AI Node.</h2>
+  <h2>Open AI Node</h2>
   <span class="subtitle">...is speaking</span>
 
   <div class="input-container">
@@ -8,16 +8,25 @@
   </div>
 
   <div class="chat-box">
-    <p *ngIf="chatResponse === ''" class="response-message bot">Loading...</p>
-    <p *ngIf="chatResponse !== ''" class="response-message bot"><strong>The Answer:</strong> {{ chatResponse }}</p>
+<!--     <p *ngIf="chatResponse === ''" class="response-message bot">Loading...</p>-->
+  <ng-container *ngIf="chatResponse !== ''">  
+    <p *ngIf="theWholeMessage else break" class="response-message bot">
+      <strong>The Answer:</strong> {{ chatResponse }}
+    </p>
+    <ng-template #break>
+      <div *ngFor="let message of messages let index=index" class="response-message bot">
+        <p>{{ messages[index] || chatResponse }}</p>
+      </div>
+    </ng-template>
+  </ng-container>
   </div>
 </div>
 
 <!-- Toggle switch -->
  <div style="margin-left: 20px; color: aqua;">
 <label class="switch">   
- <input type="checkbox">
+ <input type="checkbox" (change)="toggleChat()">
  <span class="slider"></span>
 </label> 
-<span style="margin-left:5px;" [ngStyle]="{color: 1? '#cadefc' : '#680747'}" >{{ 1===1 ? 'Streamed Response' : 'Combined Response' }}</span> 
+<span style="margin-left:5px;" [ngStyle]="{color: !theWholeMessage ? '#cadefc' : '#680747'}" >{{ !theWholeMessage ? 'Streamed Response' : 'Combined Response' }}</span> 
 </div>

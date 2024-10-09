@@ -1,14 +1,18 @@
+require('dotenv').config();
 const WebSocket = require('ws');
 const axios = require('axios');
 const express = require('express');
 const http = require('http');
-
+const cors = require('cors');
 const app = express();
+app.use(cors({
+  origin: 'http://localhost:4200' // Your Angular app's origin
+}));
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
 
 const CHATGPT_API_URL = 'https://api.openai.com/v1/chat/completions';
-const CHATGPT_API_KEY = ''; // Replace with your actual API key
+const CHATGPT_API_KEY = process.env.API_KEY;
 
 wss.on('connection', ws => {
   console.log('Client connected');
@@ -39,6 +43,8 @@ wss.on('connection', ws => {
         const chunkSize = 50;
         for (let i = 0; i < chatResponse.length; i += chunkSize) {
           const chunk = chatResponse.slice(i, i + chunkSize);
+          console.log('Sending chunk:', chunk);
+          
           ws.send(JSON.stringify({ message: chunk }));
           await new Promise(resolve => setTimeout(resolve, 100)); // Adjust delay as needed
         }

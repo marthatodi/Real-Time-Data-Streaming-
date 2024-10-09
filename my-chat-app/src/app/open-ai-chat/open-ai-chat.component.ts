@@ -13,7 +13,9 @@ export class OpenAiChatComponent implements OnDestroy {
   newchatResponse:string = '' ;
   textToTranslate: string = '';
   subscription: Subscription | null = null; // Initialize to null
-    
+  theWholeMessage: boolean = true;
+  messages: string[] = [];
+
   constructor(private dataService: OpenAIService, private cdRef: ChangeDetectorRef  ) {}
 
 
@@ -22,12 +24,14 @@ export class OpenAiChatComponent implements OnDestroy {
       console.error('Text to translate is empty');
       return; // Prevent making a request if there is no text
     }
+    this.chatResponse = '';
+    this.messages = [];
     // Subscribe to the streaming data from OpenAIService
     this.subscription = this.dataService.getData(this.textToTranslate).subscribe({
       next: (data) => {
         console.log('Received data:', data); // Log the received data
         this.chatResponse += data; // Append the streamed data chunks to the response
-        console.log(this.chatResponse);
+        this.messages.push(data);
         this.cdRef.detectChanges()
        // this.newchatResponse = data
       },
@@ -36,10 +40,13 @@ export class OpenAiChatComponent implements OnDestroy {
       },
      
       complete: () => {
-
         console.log('Streaming complete');
       }
     });
+  }
+
+  toggleChat() {
+    this.theWholeMessage = !this.theWholeMessage; // Toggle the state
   }
   ngOnDestroy() {
     // Unsubscribe from the data stream to avoid memory leaks

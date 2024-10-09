@@ -6,12 +6,14 @@
     
   </span>
   <div class="chat-box">
-    <p *ngIf="theWholeMessage  else break" class="response-message bot">{{ currentMessage }}</p>
-    <ng-template #break>
-      <div *ngFor="let message of messages let index=index" class="response-message bot">
-        <p>{{ messages[index] || currentMessage }}</p>
-      </div>
-    </ng-template>
+    <ng-container *ngIf="currentMessage !== ''">
+      <p *ngIf="theWholeMessage else break" class="response-message bot">{{ currentMessage }}</p>
+      <ng-template #break>
+        <div *ngFor="let message of messages let index=index" class="response-message bot">
+          <p>{{ messages[index] || currentMessage }}</p>
+        </div>
+      </ng-template>
+   </ng-container>
   </div>
 
   <div class="input-container">
@@ -26,5 +28,5 @@
   <input type="checkbox"  (change)="toggleChat()">
   <span class="slider"></span>
 </label>
-<span style="margin-left:5px;" [ngStyle]="{color: theWholeMessage ? '#cadefc' : '#680747'}" >{{ theWholeMessage ? 'Streamed Response' : 'Combined Response' }}</span> 
+<span style="margin-left:5px;" [ngStyle]="{color: !theWholeMessage ? '#cadefc' : '#680747'}" >{{ !theWholeMessage ? 'Streamed Response' : 'Combined Response' }}</span> 
 </div>

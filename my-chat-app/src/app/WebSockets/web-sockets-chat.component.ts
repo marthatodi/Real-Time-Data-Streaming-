@@ -10,7 +10,7 @@ import { WebSocketService } from '../websocket.service';
 export class WebSocketsChatComponent implements OnInit {
   messages: string[] = [];
   currentMessage: string = '';
-  theWholeMessage: boolean = false;
+  theWholeMessage: boolean = true;
 
   constructor(private webSocketService: WebSocketService) {}
 
@@ -32,6 +32,7 @@ export class WebSocketsChatComponent implements OnInit {
   }
 
   sendMessage(content: string): void {
+    this.messages = [];
     if (content && content.trim()) {
       const message = { content: content.trim() }; // Create message object
       this.webSocketService.sendMessage(message); // Send message
