@@ -3,7 +3,10 @@
   <div class="chat-box" #chatBox  #scrollMe [scrollTop]="scrollMe.scrollHeight">
     <div style="display: flex; flex-direction: column;" *ngFor="let message of messages let index=index">
       <div class="response-message user" *ngIf="message.type === 'user'">{{ message.content }}</div>
-      <div class="response-message bot">{{ messagesResp[index]?.content || chatResponse }}</div>
+      <div class="response-message bot" *ngIf="theWholeMessage else break">{{ messagesResp[index]?.content || chatResponse }}</div>
+      <ng-template #break>
+        <div class="response-message bot" *ngFor="let streamed of messagesResp[index]?.respArray">{{ streamed }}</div>
+      </ng-template>
       <div style="font-style: italic; font-size: 12px; color: #113f67; font-weight: bold;" *ngIf="messagesResp[index]?.time">
         finished in {{messagesResp[index]?.time}} sec
       </div>
@@ -13,3 +16,11 @@
   <div class="chat-options">
   </div>
 </div>
+<!-- Toggle switch -->
+<div style="margin-left: 20px; color: aqua;">
+  <label class="switch">   
+   <input type="checkbox" (change)="toggleChat()">
+   <span class="slider"></span>
+  </label> 
+  <span style="margin-left:5px;" [ngStyle]="{color: !theWholeMessage ? '#cadefc' : '#680747'}" >{{ !theWholeMessage ? 'Streamed Response' : 'Combined Response' }}</span> 
+  </div>
