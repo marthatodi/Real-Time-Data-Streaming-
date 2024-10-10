@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs';
 export class OpenAiChatComponent implements OnDestroy {
   chatResponse:string = '' ;
   newchatResponse:string = '' ;
-  textToTranslate: string = '';
+  userQuestion: string = '';
   subscription: Subscription | null = null; // Initialize to null
   theWholeMessage: boolean = true;
   messages: string[] = [];
@@ -20,14 +20,14 @@ export class OpenAiChatComponent implements OnDestroy {
 
 
   getData(): void {
-    if (!this.textToTranslate) {
+    if (!this.userQuestion) {
       console.error('Text to translate is empty');
       return; // Prevent making a request if there is no text
     }
     this.chatResponse = '';
     this.messages = [];
     // Subscribe to the streaming data from OpenAIService
-    this.subscription = this.dataService.getData(this.textToTranslate).subscribe({
+    this.subscription = this.dataService.getData(this.userQuestion).subscribe({
       next: (data) => {
         console.log('Received data:', data); // Log the received data
         this.chatResponse += data; // Append the streamed data chunks to the response
