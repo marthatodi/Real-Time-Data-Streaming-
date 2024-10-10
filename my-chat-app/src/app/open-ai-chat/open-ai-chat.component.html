@@ -8,16 +8,18 @@
   </div>
 
   <div class="chat-box">
-<!--     <p *ngIf="chatResponse === ''" class="response-message bot">Loading...</p>-->
   <ng-container *ngIf="chatResponse !== ''">  
     <p *ngIf="theWholeMessage else break" class="response-message bot">
-      <strong>The Answer:</strong> {{ chatResponse }}
+      {{ chatResponse }}
     </p>
     <ng-template #break>
-      <div *ngFor="let message of messages let index=index" class="response-message bot">
-        <p>{{ messages[index] || chatResponse }}</p>
+      <div *ngFor="let message of messages let index=index">
+        <p class="response-message bot">{{ messages[index] || chatResponse }}</p>
       </div>
     </ng-template>
+    <div style="font-style: italic; font-size: 12px; color: #113f67; font-weight: bold;" *ngIf="time">
+      finished in {{time}} sec
+    </div>
   </ng-container>
   </div>
 </div>

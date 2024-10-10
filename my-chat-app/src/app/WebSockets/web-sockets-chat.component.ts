@@ -11,23 +11,30 @@ export class WebSocketsChatComponent implements OnInit {
   messages: string[] = [];
   currentMessage: string = '';
   theWholeMessage: boolean = true;
-
+  startTime = 0;
+  time = 0;
   constructor(private webSocketService: WebSocketService) {}
 
   ngOnInit(): void {
+    this.time = 0 
+    debugger
     this.webSocketService.messages$.subscribe({
       next: (message: string) => {
         try {
           const data = JSON.parse(message); // Deserialize the JSON string
           this.currentMessage += data.message; // Append chunk to current message
           this.messages.push(data.message);
+          this.time += (Date.now() - this.startTime)/1000 // in sec;
+
           console.log(this.currentMessage);      
         } catch (error) {
           console.error('Error parsing JSON:', error);
         }
       },
       error: (err: any) => console.error('WebSocket error:', err),
-      complete: () => console.log('WebSocket connection closed'),
+      complete: () => {
+        console.log('WebSocket connection closed')
+      },
     });
   }
 
@@ -35,6 +42,7 @@ export class WebSocketsChatComponent implements OnInit {
     this.messages = [];
     if (content && content.trim()) {
       const message = { content: content.trim() }; // Create message object
+      this.startTime = Date.now(); 
       this.webSocketService.sendMessage(message); // Send message
       this.currentMessage = ''; // Clear current message
     } else {

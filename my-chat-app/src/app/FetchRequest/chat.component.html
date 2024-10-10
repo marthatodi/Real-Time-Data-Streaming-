@@ -4,6 +4,9 @@
     <div style="display: flex; flex-direction: column;" *ngFor="let message of messages let index=index">
       <div class="response-message user" *ngIf="message.type === 'user'">{{ message.content }}</div>
       <div class="response-message bot">{{ messagesResp[index]?.content || chatResponse }}</div>
+      <div style="font-style: italic; font-size: 12px; color: #113f67; font-weight: bold;" *ngIf="messagesResp[index]?.time">
+        finished in {{messagesResp[index]?.time}} sec
+      </div>
     </div>
   </div>
   <textarea [(ngModel)]="userMessage" placeholder="Ask me something here..." (keydown)="sendMessage($event)"></textarea>
