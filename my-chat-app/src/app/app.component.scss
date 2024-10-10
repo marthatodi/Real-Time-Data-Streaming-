@@ -1,3 +1,93 @@
+
+.loading{
+  &__image {
+    text-align: center;
+  }
+  &.css-typing p {
+    border-right: .15rem solid #113f67;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  &.css-typing p:nth-child(1) {
+    width: 13.5rem;
+    -webkit-animation: type 2.5s steps(26, end), blink .4s step-end infinite alternate;
+    animation: type 2.4s steps(25, end), blink .4s step-end infinite alternate;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+  }
+  
+  &.css-typing p:nth-child(2) {
+    width: 7.5rem;
+    opacity: 0;
+    -webkit-animation: type2 6s steps(50, end), blink .4s step-end infinite alternate;
+    animation: type2 6s steps(50, end), blink .4s step-end infinite alternate;
+    -webkit-animation-delay: 2.4s;
+    animation-delay: 2.7s;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+  }
+
+  @keyframes type {
+    0% {
+      width: 0;
+    }
+    99.9% {
+      border-right: .15rem solid #113f67;
+    }
+    100% {
+      border: none;
+    }
+  }
+
+  @-webkit-keyframes type {
+    0% {
+      width: 0;
+    }
+    99.9% {
+      border-right: .15rem solid #113f67;
+    }
+    100% {
+      border: none;
+    }
+  }
+
+  @keyframes type2 {
+    0% {
+      width: 0;
+    }
+    1% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  @-webkit-keyframes type2 {
+    0% {
+      width: 0;
+    }
+    1% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes blink {
+    50% {
+      border-color: transparent;
+    }
+  }
+
+  @-webkit-keyframes blink {
+    50% {
+      border-color: tranparent;
+    }
+  }
+}
 button {
   padding: 10px;
   background-color: gray;
