@@ -5,56 +5,86 @@ const express = require('express');
 const http = require('http');
 const cors = require('cors');
 const app = express();
+
 app.use(cors({
-  origin: 'http://localhost:4200' // Your Angular app's origin
+  origin: 'http://localhost:4200' // Allow Angular app access
 }));
+
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
 
 const CHATGPT_API_URL = 'https://api.openai.com/v1/chat/completions';
-const CHATGPT_API_KEY = process.env.API_KEY;
+const CHATGPT_API_KEY = process.env.OPENAI_API_KEY || '';
 
 wss.on('connection', ws => {
   console.log('Client connected');
 
   ws.on('message', async message => {
-    console.log('Received:', message);
+    console.log('Received message:', message);
 
     try {
-      const userMessage = JSON.parse(message); // Parse the incoming message
-      if (userMessage && userMessage.content) {
-        const response = await axios.post(
-          CHATGPT_API_URL,
-          {
-            model: 'gpt-3.5-turbo',
-            messages: [{ role: 'user', content: userMessage.content }]
-          },
-          {
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${CHATGPT_API_KEY}`
+      const userMessage = JSON.parse(message);  // Parse the incoming message from the client
+      console.log(CHATGPT_API_KEY);
+      
+      // OpenAI request with streaming enabled
+      const apiRequest = {
+        model: 'gpt-3.5-turbo',
+        messages: [{ role: 'user', content: userMessage.content }],
+        stream: true  // Enable streaming
+      };
+
+      const headers = {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${CHATGPT_API_KEY}`
+      };
+
+      const response = await axios({
+        url: CHATGPT_API_URL,
+        method: 'POST',
+        headers: headers,
+        data: JSON.stringify(apiRequest),
+        responseType: 'stream' // Important: this tells Axios to handle the response as a stream
+      });
+
+      // Handle streaming data
+      response.data.on('data', (chunk) => {
+        const lines = chunk.toString().split('\n').filter(line => line.trim() !== '');
+        debugger
+        for (const line of lines) {
+          console.log('lines',line);
+
+          if (line.startsWith('data:')) {
+            const data = line.slice(5); // Remove 'data: ' prefix
+            if (data === '[DONE]') {
+              ws.send(JSON.stringify({ message: '[DONE]' }));
+              ws.close();  // Close WebSocket connection after completion
+            } else {
+              try {
+                const parsedData = JSON.parse(data);
+                const content = parsedData.choices[0]?.delta?.content;
+                if (content) {
+                  ws.send(JSON.stringify({ message: content }));
+                }
+              } catch (error) {
+                console.error('Error parsing stream chunk:', error);
+              }
             }
           }
-        );
-
-        const chatResponse = response.data.choices[0].message.content;
-        
-        // Simulate streaming by sending chunks of the response
-        const chunkSize = 50;
-        for (let i = 0; i < chatResponse.length; i += chunkSize) {
-          const chunk = chatResponse.slice(i, i + chunkSize);
-          console.log('Sending chunk:', chunk);
-          
-          ws.send(JSON.stringify({ message: chunk }));
-          await new Promise(resolve => setTimeout(resolve, 100)); // Adjust delay as needed
         }
+      });
 
-      } else {
-        ws.send(JSON.stringify({ message: 'Invalid message format' }));
-      }
+      response.data.on('end', () => {
+        console.log('Stream finished');
+      });
+
+      response.data.on('error', (error) => {
+        console.error('Stream error:', error);
+        ws.send(JSON.stringify({ message: 'Error with streaming from OpenAI' }));
+      });
+
     } catch (error) {
-      console.error('Error:', error.response ? error.response.data : error.message);
-      ws.send(JSON.stringify({ message: 'Error communicating with ChatGPT API' }));
+      console.error('Error:', error.message);
+      ws.send(JSON.stringify({ message: 'Error communicating with OpenAI API' }));
     }
   });
 
