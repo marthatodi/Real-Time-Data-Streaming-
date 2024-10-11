@@ -1,4 +1,3 @@
-// chat.component.ts
 import { Component, OnInit } from '@angular/core';
 import { WebSocketService } from '../websocket.service';
 
@@ -12,28 +11,33 @@ export class WebSocketsChatComponent implements OnInit {
   currentMessage: string = '';
   theWholeMessage: boolean = true;
   startTime = 0;
-  time = 0;
+  totalTime = 0; // Total time in seconds
+  answerComplete: boolean = false; // Flag to track if the answer is complete
+
   constructor(private webSocketService: WebSocketService) {}
 
   ngOnInit(): void {
-    this.time = 0 
-    debugger
     this.webSocketService.messages$.subscribe({
       next: (message: string) => {
         try {
           const data = JSON.parse(message); // Deserialize the JSON string
-          this.currentMessage += data.message; // Append chunk to current message
-          this.messages.push(data.message);
-          this.time += (Date.now() - this.startTime)/1000 // in sec;
+          // Check if the response indicates completion
+          if (data.message === '[DONE]') {            
+            this.answerComplete = true;
+            this.stopTimer(); // Stop timer when the answer is complete
+          }else{
+            this.currentMessage += data.message; // Append chunk to current message
+            this.messages.push(data.message);
+          }
 
-          console.log(this.currentMessage);      
+          console.log(this.currentMessage);
         } catch (error) {
           console.error('Error parsing JSON:', error);
         }
       },
       error: (err: any) => console.error('WebSocket error:', err),
       complete: () => {
-        console.log('WebSocket connection closed')
+        console.log('WebSocket connection closed');
       },
     });
   }
@@ -42,16 +46,24 @@ export class WebSocketsChatComponent implements OnInit {
     this.messages = [];
     if (content && content.trim()) {
       const message = { content: content.trim() }; // Create message object
-      this.startTime = Date.now(); 
-      this.webSocketService.sendMessage(message); // Send message
+      this.startTime = Date.now(); // Start timer
+      this.totalTime = 0; // Reset total time
+      this.answerComplete = false; // Reset completion flag
       this.currentMessage = ''; // Clear current message
+      this.webSocketService.sendMessage(message); // Send message
     } else {
       console.error('Message content cannot be empty');
     }
   }
 
-    // Toggle chat visibility
-    toggleChat() {
-      this.theWholeMessage = !this.theWholeMessage; // Toggle the state
-    }
+  // Function to stop the timer
+  private stopTimer(): void {
+    const endTime = Date.now();
+    this.totalTime =(endTime - this.startTime) / 1000; // Calculate total time in seconds
+  }
+
+  // Toggle chat visibility
+  toggleChat() {
+    this.theWholeMessage = !this.theWholeMessage; // Toggle the state
+  }
 }

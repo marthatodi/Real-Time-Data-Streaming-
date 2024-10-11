@@ -13,8 +13,8 @@
           <p  class="response-message bot">{{ messages[index] || currentMessage }}</p>
         </div>
       </ng-template>
-      <div style="font-style: italic; font-size: 12px; color: #113f67; font-weight: bold;" *ngIf="time">
-        finished in {{time}} sec
+      <div style="font-style: italic; font-size: 12px; color: #113f67; font-weight: bold;" *ngIf="totalTime">
+        finished in {{totalTime}} sec
       </div>
    </ng-container>
   </div>

@@ -55,10 +55,7 @@ wss.on('connection', ws => {
 
           if (line.startsWith('data:')) {
             const data = line.slice(5); // Remove 'data: ' prefix
-            if (data === '[DONE]') {
-              ws.send(JSON.stringify({ message: '[DONE]' }));
-              ws.close();  // Close WebSocket connection after completion
-            } else {
+            if (data !== '[DONE]') {
               try {
                 const parsedData = JSON.parse(data);
                 const content = parsedData.choices[0]?.delta?.content;
@@ -74,6 +71,7 @@ wss.on('connection', ws => {
       });
 
       response.data.on('end', () => {
+        ws.send(JSON.stringify({ message: '[DONE]' }));
         console.log('Stream finished');
       });
 

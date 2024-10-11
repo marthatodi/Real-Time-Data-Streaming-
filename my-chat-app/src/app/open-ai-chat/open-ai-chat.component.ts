@@ -42,9 +42,8 @@ export class OpenAiChatComponent implements OnDestroy {
       },
      
       complete: () => {
-        this.time += (Date.now() - this.startTime)/1000 // in sec;
+        this.time = (Date.now() - this.startTime)/1000 // in sec;
         this.cdRef.detectChanges()
-        console.log(this.time);
         console.log('Streaming complete');
       }
     });
