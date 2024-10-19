@@ -48,8 +48,8 @@ Feel free to explore each chat option to see how the different communication met
   4. Run the Angular project: ng serve (you must run the app in http://localhost:8080)
 
   5. Run servers in seperate terminals:
-        - For the Node.js server, navigate to the server folder and start the Node server: node server-ai.js
-        - For the Node.js server, navigate to the server folder and start the Node server: node server.js
+        - For the Node.js server, navigate to the server folder and start the Node AI serveR: node server-ai.js
+        - For the Node.js server, navigate to the server folder and start the Web Sockets server: node server.js
 
 
 
