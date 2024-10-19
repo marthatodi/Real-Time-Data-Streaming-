@@ -31,6 +31,8 @@ Each chat interface is designed to allow users to communicate with OpenAI's GPT-
 
 Feel free to explore each chat option to see how the different communication methods compare in terms of performance, usability, and implementation complexity.
 
+You can navigate between Node AI and Web Socket chats by clicking the button in the middle of the screen.
+
 **Add your CHATGPT API KEY:**
 
   1. apiKey in fetchService
